@@ -1,0 +1,1 @@
+add_library(shared STATIC complex.cc complex.h input_image.cc input_image.h) 
