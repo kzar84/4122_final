@@ -1,9 +1,16 @@
-cmake_minimum_required(VERSION 3.9)
-# project(p33 LANGUAGES CUDA CXX)
-
-# find_package(CUDA QUIET REQUIRED)
-
-# CUDA_ADD_EXECUTABLE(
-# 	heat2D3D
-# 	src/main.cu
-# 	)
+cmake_minimum_required(VERSION 3.9.1)
+PROJECT(p33)
+FIND_PACKAGE(CUDA QUIET REQUIRED)
+SET(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}; -std=c++11;)
+SET(CUDA_64_BIT_DEVICE_CODE ON)
+SET(CUDA_SEPARABLE_COMPILATION ON)
+INCLUDE_DIRECTORIES( src)
+LINK_DIRECTORIES(src)
+SET(CUDA_SRC
+        src/input_image.cuh
+        src/input_image.cu
+        src/complex.cuh
+        src/complex.cu
+)
+CUDA_ADD_EXECUTABLE(p33 ${CUDA_SRC} src/p33.cu)
+target_link_libraries(p33 ${CUDA_LIBRARIES})
